@@ -1,5 +1,6 @@
 package com.example.sberbank.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "organizations")
@@ -18,15 +20,15 @@ import java.util.List;
 public class Organization {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String inn;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String kpp;
 
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL)

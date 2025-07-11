@@ -1,5 +1,6 @@
 package com.example.sberbank.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "gas_stations")
@@ -16,12 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class GasStation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
     @Column(name = "external_id", unique = true, nullable = false)
-    private String externalId;  // ID из внешней системы
+    private String externalId;
 
     @Column(nullable = false)
     private String name;
@@ -40,19 +43,21 @@ public class GasStation {
     private Location location;
 
     @Column(name = "take_off_mode")
-    private String takeOffMode;  // Режим выдачи топлива
+    private String takeOffMode;
 
     @Column(name = "post_pay")
-    private boolean postPay;     // Оплата после заправки
+    private boolean postPay;
 
-    private boolean enable;     // Статус активности АЗС
+    private boolean enable;
 
     @OneToMany(mappedBy = "gasStation", cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<Fuel> fuels = new ArrayList<>();
 
     @OneToMany(mappedBy = "gasStation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pump> pumps = new ArrayList<>();
+    private List<com.example.sberbank.model.Column> columns = new ArrayList<>();
 
     @OneToMany(mappedBy = "gasStation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FuelPrice> prices = new ArrayList();
+    private List<FuelPrice> prices = new ArrayList<>();
 }
+

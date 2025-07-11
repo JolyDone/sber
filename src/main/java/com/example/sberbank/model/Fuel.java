@@ -1,13 +1,12 @@
 package com.example.sberbank.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "fuels")
@@ -18,13 +17,14 @@ import java.util.List;
 public class Fuel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
     @Column(name = "external_id", nullable = false)
-    private String externalId;  // ID из внешней системы
+    private String externalId;
 
     @ManyToOne
     @JoinColumn(name = "gas_station_id", nullable = false)
+    @ToString.Exclude
     private GasStation gasStation;
 
     private double price;

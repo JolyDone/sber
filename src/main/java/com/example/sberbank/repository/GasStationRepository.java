@@ -5,11 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface GasStationRepository extends JpaRepository<GasStation, Long> {
-
-    // Для обновления существующих АЗС
+public interface GasStationRepository extends JpaRepository<GasStation, UUID> {
     Optional<GasStation> findByExternalId(String externalId);
-
-    // Для проверки дубликатов
-    boolean existsByExternalId(String externalId);
 }

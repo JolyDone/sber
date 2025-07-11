@@ -5,31 +5,37 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "pumps")
+@Table(name = "columns")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pump {
+public class Column {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
 
-    @Column(name = "pump_number", nullable = false)
-    private String pumpNumber;  // Номер колонки (1, 2, 3...)
+    @jakarta.persistence.Column(name = "number", nullable = false)
+    private String number;
 
     @ManyToOne
     @JoinColumn(name = "gas_station_id", nullable = false)
+    @ToString.Exclude
     private GasStation gasStation;
 
     @ManyToMany
     @JoinTable(
-            name = "pump_fuels",
-            joinColumns = @JoinColumn(name = "pump_id"),
+            name = "column_fuels",
+            joinColumns = @JoinColumn(name = "column_id"),
             inverseJoinColumns = @JoinColumn(name = "fuel_id")
     )
+    @ToString.Exclude
     private List<Fuel> fuels = new ArrayList<>();
 }
+
+

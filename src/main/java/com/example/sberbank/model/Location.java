@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Location {
     @Column(nullable = false)
-    private double lon;  // Долгота
+    private double lon;
 
     @Column(nullable = false)
-    private double lat;  // Широта
+    private double lat;
 }
